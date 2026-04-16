@@ -1,0 +1,31 @@
+name: Capture Baseline
+
+on:
+  workflow_dispatch:
+
+jobs:
+  capture:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+
+      - name: Run capture
+        run: mvn test -D"esco.mode=capture"
+        env:
+          ESCO_API_BASEURL: https://esco-esp-dev-portal.cogni.zone/esco/portal-api
+          ESCO_API_COOKIE: ${{ secrets.ESCO_API_COOKIE }}
+
+      - name: Upload baselines
+        uses: actions/upload-artifact@v4
+        with:
+          name: baselines
+          path: |
+            **/baselines/**
