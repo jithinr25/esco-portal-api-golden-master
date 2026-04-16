@@ -20,8 +20,7 @@ jobs:
       - name: Run capture
         run: mvn test -D"esco.mode=capture"
         env:
-          ESCO_API_BASEURL: https://esco-esp-dev-portal.cogni.zone/esco/portal-api
-          ESCO_API_COOKIE: ${{ secrets.ESCO_API_COOKIE }}
+          ESCO_API_BASEURL: https://ec.europa.eu/esco/portal-api
 
       - name: Upload baselines
         uses: actions/upload-artifact@v4
